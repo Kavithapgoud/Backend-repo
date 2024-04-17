@@ -14,7 +14,7 @@ phases:
       # - mkdir partner
       - |
           cat > ~/Dockerfile << EOF
-          FROM 590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest
+          FROM 590184115182.dkr.ecr.ap-south-1.amazonaws.com/docker:latest
           WORKDIR .
           COPY ./abc/ .
           EXPOSE 8080
@@ -27,12 +27,12 @@ phases:
         # - npm install
         # - npm run build
         - ls
-        - docker build -t repo-backend .
+        - docker build -t docker .
   post_build:
     commands:
-        - docker tag repo-backend:latest 590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest
+        - docker tag docker:latest 590184115182.dkr.ecr.ap-south-1.amazonaws.com/docker:latest
         - echo repose-ecs
-        - docker push 590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest
-        - aws ecs register-task-definition --family taskdef-backend --region ap-south-1 --cli-input-json file:///$CODEBUILD_SRC_DIR/ecs/task-definition1.json
-        - TASK_REVISION=$(aws ecs describe-task-definition --task-definition taskdef-backend --region ap-south-1)
-        - aws ecs update-service --cluster cluster-backend --service service-backend --region ap-south-1 --task-definition taskdef-backend
+        - docker push 590184115182.dkr.ecr.ap-south-1.amazonaws.com/docker:latest
+        - aws ecs register-task-definition --family backend-task --region ap-south-1 --cli-input-json file:///$CODEBUILD_SRC_DIR/ecs/task-definition1.json
+        - TASK_REVISION=$(aws ecs describe-task-definition --task-definition backend-task --region ap-south-1)
+        - aws ecs update-service --cluster cluster-backend --service service-backend --region ap-south-1 --task-definition backend-task
