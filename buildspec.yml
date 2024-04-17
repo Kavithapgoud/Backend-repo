@@ -3,7 +3,7 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590183911139.dkr.ecr.us-east-1.amazonaws.com/repo-backend
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 590184115182 .dkr.ecr.us-east-1.amazonaws.com/repo-backend
       - envsubst < ecs/task-definition.json > ecs/task-definition1.json
       - mkdir ~/abc
       - cd ~/abc
@@ -14,7 +14,7 @@ phases:
       # - mkdir partner
       - |
           cat > ~/Dockerfile << EOF
-          FROM 590183911139.dkr.ecr.us-east-1.amazonaws.com/repo-backend:latest
+          FROM 590184115182.dkr.ecr.us-east-1.amazonaws.com/repo-backend:latest
           WORKDIR .
           COPY ./abc/ .
           EXPOSE 8080
@@ -30,9 +30,9 @@ phases:
         - docker build -t repo-backend .
   post_build:
     commands:
-        - docker tag repo-backend:latest 590183911139.dkr.ecr.us-east-1.amazonaws.com/repo-backend:latest
+        - docker tag repo-backend:latest 590184115182.dkr.ecr.us-east-1.amazonaws.com/repo-backend:latest
         - echo repose-ecs
-        - docker push 590183911139.dkr.ecr.us-east-1.amazonaws.com/repo-backend:latest
+        - docker push 590184115182.dkr.ecr.us-east-1.amazonaws.com/repo-backend:latest
         - aws ecs register-task-definition --family taskdef-backend --region us-east-1 --cli-input-json file:///$CODEBUILD_SRC_DIR/ecs/task-definition1.json
         - TASK_REVISION=$(aws ecs describe-task-definition --task-definition taskdef-backend --region us-east-1)
         - aws ecs update-service --cluster cluster-backend --service service-backend --region us-east-1 --task-definition taskdef-backend
