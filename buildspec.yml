@@ -27,7 +27,7 @@ phases:
         # - npm install
         # - npm run build
         - ls
-        - docker build -t docker .
+        - docker build -t repo-backend .
   post_build:
     commands:
         - docker tag repo-backend:latest 590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest
