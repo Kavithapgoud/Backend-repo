@@ -1,13 +1,13 @@
-{
-    "family": "taskdef-backend",
+{{
+    "family": "taskdef-1",
     "containerDefinitions": [
         {
-            "name": "image-backend",
-            "image": "590184115182.dkr.ecr.ap-south-1.amazonaws.com/docker:latest",
+            "name": "testcontainer",
+            "image": "590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "image-backend-80-tcp",
+                    "name": "testcontainer-80-tcp",
                     "containerPort": 80,
                     "hostPort": 80,
                     "protocol": "tcp",
@@ -24,7 +24,7 @@
                 "logDriver": "awslogs",
                 "options": {
                     "awslogs-create-group": "true",
-                    "awslogs-group": "/ecs/taskdef-backend",
+                    "awslogs-group": "/ecs/taskdef-1",
                     "awslogs-region": "ap-south-1",
                     "awslogs-stream-prefix": "ecs"
                 },
