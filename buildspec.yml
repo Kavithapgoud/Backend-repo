@@ -33,6 +33,6 @@ phases:
         - docker tag repo-backend:latest 590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest
         - echo repose-ecs
         - docker push 590184115182.dkr.ecr.ap-south-1.amazonaws.com/repo-backend:latest
-        - aws ecs register-task-definition --family taskdef-1 --region ap-south-1 --cli-input-json file:///$CODEBUILD_SRC_DIR/ecs/task-definition1.json
-        - TASK_REVISION=$(aws ecs describe-task-definition --task-definition taskdef-1 --region ap-south-1)
-        - aws ecs update-service --cluster cluster-1 --service service-1 --region ap-south-1 --task-definition taskdef-1
+        - aws ecs register-task-definition --family taskdef-2 --region ap-south-1 --cli-input-json file:///$CODEBUILD_SRC_DIR/ecs/task-definition1.json
+        - TASK_REVISION=$(aws ecs describe-task-definition --task-definition taskdef-2 --region ap-south-1)
+        - aws ecs update-service --cluster cluster-1 --service service-1 --region ap-south-1 --task-definition taskdef-2
